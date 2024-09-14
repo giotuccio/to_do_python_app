@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <h1>Task Manager</h1>
+    <form action="/add" method="POST">
+        <input type="text" name="task_name" placeholder="Task name" required>
+        <br><br>
+        <textarea name="task_description" placeholder="Task description" rows="3"></textarea>
+        <br><br>
+        <label for="task_priority">Priority:</label>
+        <select name="task_priority" id="task_priority">
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+        </select>
+        <br><br>
+        <label for="task_due_date">Due Date:</label>
+        <input type="date" name="task_due_date" id="task_due_date">
+        <br><br>
+        <button type="submit">Add Task</button>
+    </form>
+
+    <ul>
+        {% for task in tasks %}
+        <li>
+            <strong>{{ task.name }}</strong> - {{ task.description }} (Priority: {{ task.priority }}, Due: {{ task.due_date }})
+            <a href="/delete/{{ loop.index0 }}">Delete</a>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
